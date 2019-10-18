@@ -46,6 +46,89 @@ namespace Ghostware.NMEAParserTests
             Assert.AreEqual(136, message.DgpsStationId);
         }
 
+        [TestMethod]
+        public void GgaMessageTest_TrimbleR4()
+        {
+            var parser = new NmeaParser();
+            var result = parser.Parse(@"$GPGGA,044016.00,3325.00255993,N,12959.54699424,E,4,06,1.5,9.481,M,27.377,M,2.0,0531*40");
+
+            Assert.IsInstanceOfType(result, typeof(GpggaMessage));
+            var message = (GpggaMessage)result;
+            Assert.AreEqual("044016.00".ToTimeSpan(), message.FixTime);
+            Assert.AreEqual("3325.00255993".ToCoordinates("N", CoordinateType.Latitude), message.Latitude);
+            Assert.AreEqual("12959.54699424".ToCoordinates("E", CoordinateType.Longitude), message.Longitude);
+            Assert.AreEqual(4, (int)message.FixQuality);
+            Assert.AreEqual(6, message.NumberOfSatellites);
+            Assert.AreEqual(1.5f, message.Hdop);
+            Assert.AreEqual(9.481f, message.Altitude);
+            Assert.AreEqual("M", message.AltitudeUnits);
+            Assert.AreEqual(27.377f, message.HeightOfGeoId);
+            Assert.AreEqual("M", message.HeightOfGeoIdUnits);
+            Assert.AreEqual(2.0, message.TimeSpanSinceDgpsUpdate);
+            Assert.AreEqual(531, message.DgpsStationId);
+        }
+
+        [TestMethod]
+        public void GgaMessageTest_TrimbleBX992()
+        {
+            var parser = new NmeaParser();
+            var result = parser.Parse(@"$GPGGA,172814.0,3723.46587704,N,12202.26957864,W,2,6,1.2,18.893,M,-25.669,M,2.0,0031*4F");
+
+            Assert.IsInstanceOfType(result, typeof(GpggaMessage));
+            var message = (GpggaMessage)result;
+            Assert.AreEqual("172814.0".ToTimeSpan(), message.FixTime);
+            Assert.AreEqual("3723.46587704".ToCoordinates("N", CoordinateType.Latitude), message.Latitude);
+            Assert.AreEqual("12202.26957864".ToCoordinates("W", CoordinateType.Longitude), message.Longitude);
+            Assert.AreEqual(2, (int)message.FixQuality);
+            Assert.AreEqual(6, message.NumberOfSatellites);
+            Assert.AreEqual(1.2f, message.Hdop);
+            Assert.AreEqual(18.893f, message.Altitude);
+            Assert.AreEqual("M", message.AltitudeUnits);
+            Assert.AreEqual(-25.669f, message.HeightOfGeoId);
+            Assert.AreEqual("M", message.HeightOfGeoIdUnits);
+            Assert.AreEqual(2.0, message.TimeSpanSinceDgpsUpdate);
+            Assert.AreEqual(31, message.DgpsStationId);
+        }
+
+        [TestMethod]
+        public void GstMessageTest_TrimbleBX992()
+        {
+            var parser = new NmeaParser();
+            var result = parser.Parse(@"$GPGST,172814.0,0.006,0.023,0.020,273.6,0.023,0.020,0.031*6A");
+
+            Assert.IsInstanceOfType(result, typeof(GpgstMessage));
+            var message = (GpgstMessage)result;
+            Assert.AreEqual(172814.0d, message.UTCofPositionFix);
+            Assert.AreEqual(0.006d, message.RMSValueOfThePseudorangeRediduals);
+            Assert.AreEqual(0.023d, message.ErrorEllipseSemiMajorAxis);
+            Assert.AreEqual(0.020d, message.ErrorEllipseSemiMinorAxis);
+            Assert.AreEqual(273.6d, message.ErrorEllipseOrientationDegrees);
+            Assert.AreEqual(0.023d, message.Latitude1SigmaError);
+            Assert.AreEqual(0.020d, message.Longitude1SigmaError);
+            Assert.AreEqual(0.031d, message.Height1SigmaError);
+        }
+
+        [TestMethod]
+        public void LlqMessageTest_TrimbleBX992()
+        {
+            var parser = new NmeaParser();
+            var result = parser.Parse(@"$GPLLQ,034137.00,210712,,M,,M,3,15,0.011,,M*15");
+
+            Assert.IsInstanceOfType(result, typeof(GpllqMessage));
+            var message = (GpllqMessage)result;
+            Assert.AreEqual(34137.0d, message.UTCtimeOfPosition);
+            Assert.AreEqual("210712", message.UTCdate);
+            Assert.AreEqual(double.NaN, message.GridEasting);
+            Assert.AreEqual("M", message.GridEastingUnits);
+            Assert.AreEqual(double.NaN, message.GridNorthing);
+            Assert.AreEqual("M", message.GridNorthingUnits);
+            Assert.AreEqual(3, message.GPSQuality);
+            Assert.AreEqual(15, message.NumberOfSatellites);
+            Assert.AreEqual(0.011, message.PositionQuality);
+            Assert.AreEqual(double.NaN, message.Height);
+            Assert.AreEqual("M", message.HeightUnits);
+        }
+
         //"$GPRMC,091317.75,A,5037.0967674,N,00534.6232070,E,0.019,215.1,220816,0.0,E,D*33"
         [TestMethod]
         public void RmcMessageTest1()

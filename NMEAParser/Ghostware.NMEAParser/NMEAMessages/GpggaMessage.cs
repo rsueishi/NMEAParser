@@ -76,7 +76,7 @@ namespace Ghostware.NMEAParser.NMEAMessages
         /// <summary>
         /// Time in seconds since last DGPS update
         /// </summary>
-        public int TimeSpanSinceDgpsUpdate { get; set; }
+        public float TimeSpanSinceDgpsUpdate { get; set; }
 
         /// <summary>
         /// DGPS station ID number
@@ -89,7 +89,7 @@ namespace Ghostware.NMEAParser.NMEAMessages
 
         public override void Parse(string[] messageParts)
         {
-            if (messageParts == null || messageParts.Length < 14)
+            if (messageParts == null || messageParts.Length < 15)
             {
                 throw new ArgumentException("Invalid GPGGA message");
             }
@@ -103,7 +103,7 @@ namespace Ghostware.NMEAParser.NMEAMessages
             AltitudeUnits = messageParts[10];
             HeightOfGeoId = messageParts[11].ToFloat();
             HeightOfGeoIdUnits = messageParts[12];
-            TimeSpanSinceDgpsUpdate = messageParts[13].ToInteger();
+            TimeSpanSinceDgpsUpdate = messageParts[13].ToFloat();
             DgpsStationId = messageParts[14].ToInteger();
         }
 
