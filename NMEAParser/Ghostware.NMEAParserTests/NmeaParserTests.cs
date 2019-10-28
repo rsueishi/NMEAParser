@@ -205,13 +205,25 @@ namespace Ghostware.NMEAParserTests
             var result = parser.Parse(GsaMessage1);
 
             Assert.IsInstanceOfType(result, typeof(GpgsaMessage));
-            var message = (GpgsaMessage) result;
+            var message = (GpgsaMessage)result;
             Assert.AreEqual(true, message.GpsStatusAuto);
             Assert.AreEqual(3, (int)message.SatelliteFix);
             Assert.AreEqual("04,05,,09,12,,,24,,,,,", message.Pnrs);
             Assert.AreEqual(2.5f, message.Pdop);
             Assert.AreEqual(1.3f, message.Hdop);
             Assert.AreEqual(2.1f, message.Vdop);
+        }
+
+        [TestMethod]
+        public void HdtMessageTest1()
+        {
+            var parser = new NmeaParser();
+            var result = parser.Parse(@"$GNHDT,19.446,T*15");
+
+            Assert.IsInstanceOfType(result, typeof(GphdtMessage));
+            var message = (GphdtMessage)result;
+            Assert.AreEqual(19.446d, message.HeadingInDegrees);
+            Assert.AreEqual("T", message.IndicatesHeadingRelativeToTrueNorth);
         }
     }
 }

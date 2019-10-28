@@ -48,6 +48,7 @@
     <Compile Include="NmeaConstants.cs" />
     <Compile Include="NMEAMessages\GpgsaMessage.cs" />
     <Compile Include="NMEAMessages\GpgstMessage.cs" />
+    <Compile Include="NMEAMessages\GphdtMessage.cs" />
     <Compile Include="NMEAMessages\GpllqMessage.cs" />
     <Compile Include="NMEAMessages\GprmcMessage.cs" />
     <Compile Include="NMEAMessages\GpvtgMessage.cs" />

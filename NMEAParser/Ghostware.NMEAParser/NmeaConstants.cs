@@ -10,11 +10,16 @@ namespace Ghostware.NMEAParser
         private static readonly Dictionary<string, Type> TypeDictionary = new Dictionary<string, Type>
         {
             {"GPGGA", typeof(GpggaMessage)},
+            {"GNGGA", typeof(GpggaMessage)},
             {"GPGST", typeof(GpgstMessage)},
+            {"GNGST", typeof(GpgstMessage)},
             {"GPLLQ", typeof(GpllqMessage)},
+            {"GPHDT", typeof(GphdtMessage)},
+            {"GNHDT", typeof(GphdtMessage)},
             {"GPRMC", typeof(GprmcMessage)},
             {"GPVTG", typeof(GpvtgMessage)},
-            {"GPGSA", typeof(GpgsaMessage)}
+            {"GPGSA", typeof(GpgsaMessage)},
+            {"GNGSA", typeof(GpgsaMessage)}
         };
 
         /// <summary>

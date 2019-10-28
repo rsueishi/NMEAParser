@@ -45,7 +45,11 @@ namespace Ghostware.NMEAParser.NMEAMessages
 
         public double Latitude { get; set; }
 
+        public string DirectionOfLatitude { get; set; }
+
         public double Longitude { get; set; }
+
+        public string DirectionOfLongitude { get; set; }
 
         public GpsFixQuality FixQuality { get; set; }
 
@@ -95,7 +99,9 @@ namespace Ghostware.NMEAParser.NMEAMessages
             }
             FixTime = messageParts[1].ToTimeSpan();
             Latitude = messageParts[2].ToCoordinates(messageParts[3], CoordinateType.Latitude);
+            DirectionOfLatitude = messageParts[3];
             Longitude = messageParts[4].ToCoordinates(messageParts[5], CoordinateType.Longitude);
+            DirectionOfLongitude = messageParts[5];
             FixQuality = (GpsFixQuality)Enum.Parse(typeof(GpsFixQuality), messageParts[6]);
             NumberOfSatellites = messageParts[7].ToInteger();
             Hdop = messageParts[8].ToFloat();
