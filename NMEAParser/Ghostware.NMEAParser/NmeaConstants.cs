@@ -14,6 +14,7 @@ namespace Ghostware.NMEAParser
             {"GPGST", typeof(GpgstMessage)},
             {"GNGST", typeof(GpgstMessage)},
             {"GPLLQ", typeof(GpllqMessage)},
+            {"GNLLQ", typeof(GpllqMessage)},
             {"GPHDT", typeof(GphdtMessage)},
             {"GNHDT", typeof(GphdtMessage)},
             {"GPRMC", typeof(GprmcMessage)},
