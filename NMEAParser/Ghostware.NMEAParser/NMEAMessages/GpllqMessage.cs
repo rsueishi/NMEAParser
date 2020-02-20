@@ -9,7 +9,7 @@ namespace Ghostware.NMEAParser.NMEAMessages
     {
         #region Properties
 
-        public double UTCtimeOfPosition { get; set; }
+        public string UTCtimeOfPosition { get; set; }
         public string UTCdate { get; set; }
         public double GridEasting { get; set; }
         public string GridEastingUnits { get; set; }
@@ -31,7 +31,7 @@ namespace Ghostware.NMEAParser.NMEAMessages
             {
                 throw new ArgumentException("Invalid GPGST message");
             }
-            UTCtimeOfPosition = messageParts[1].ToDouble();
+            UTCtimeOfPosition = messageParts[1];
             UTCdate = messageParts[2];
             GridEasting = messageParts[3].ToDouble();
             GridEastingUnits = messageParts[4];
