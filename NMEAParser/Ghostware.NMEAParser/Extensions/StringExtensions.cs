@@ -17,7 +17,7 @@ namespace Ghostware.NMEAParser.Extensions
 
         public static double ToCoordinates(this string inputString, string cardinalDirection, CoordinateType coordinateType)
         {
-            if (string.IsNullOrEmpty(inputString)) return 0.0d;
+            if (string.IsNullOrEmpty(inputString)) return double.NaN;
 
             var degreeCharacters = coordinateType == CoordinateType.Latitude ? 2 : 3;
 
