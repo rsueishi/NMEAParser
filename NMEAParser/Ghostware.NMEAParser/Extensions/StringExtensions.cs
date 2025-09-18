@@ -11,6 +11,8 @@ namespace Ghostware.NMEAParser.Extensions
 
         public static TimeSpan ToTimeSpan(this string inputString)
         {
+            if (string.IsNullOrEmpty(inputString)) return TimeSpan.Zero;
+
             var regexMatch = Regex.Match(inputString, Pattern);
             return regexMatch.Groups.Count == 0 ? TimeSpan.Zero : new TimeSpan(0, int.Parse(regexMatch.Groups[1].Value), int.Parse(regexMatch.Groups[2].Value), int.Parse(regexMatch.Groups[3].Value));
         }

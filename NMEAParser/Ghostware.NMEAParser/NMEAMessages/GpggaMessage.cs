@@ -102,7 +102,11 @@ namespace Ghostware.NMEAParser.NMEAMessages
             DirectionOfLatitude = messageParts[3];
             Longitude = messageParts[4].ToCoordinates(messageParts[5], CoordinateType.Longitude);
             DirectionOfLongitude = messageParts[5];
-            FixQuality = (GpsFixQuality)Enum.Parse(typeof(GpsFixQuality), messageParts[6]);
+            try
+            {
+                FixQuality = (GpsFixQuality)Enum.Parse(typeof(GpsFixQuality), messageParts[6]);
+            }
+            catch { }
             NumberOfSatellites = messageParts[7].ToInteger();
             Hdop = messageParts[8].ToFloat();
             Altitude = messageParts[9].ToFloat();
